@@ -78,6 +78,7 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
     double numOfNodes = 0;
     double currentDepth = -1;
     double depthSum = 0;
+    double tempDepth = -1;
 
     public Iterator<Key> iterator() {
         return new BSTIterator();
@@ -111,18 +112,10 @@ public class BST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
         public Key next() {
             Node x = stack.pop();
             currentDepth = x.depth;
+            tempDepth = currentDepth;
             depthSum += x.depth;
             pushLeft(x.right);
             return x.key;
         }
     }
-
-    public static void main(String[] args) {
-        BST bst = new BST();
-        Comparable[] comparables = { 0, 1, 2, 3 };
-        bst.put(comparables[0], "google");
-        bst.put(comparables[1], "facebook");
-        bst.put(comparables[2], "youtube");
-    }
-
 }

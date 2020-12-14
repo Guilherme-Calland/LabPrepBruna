@@ -12,7 +12,7 @@ public class WordCounter
     // Associate each word with a count.
     private HashMap<String, Integer> counts;
     private BST bstHistogram;
-    private HashMap<Integer, Integer> depthHistogram;
+    private HashMap<Double, Double> depthHistogram;
     // will contain the histogramm with the interger over the words
 
     /**
@@ -22,7 +22,7 @@ public class WordCounter
     {
         counts = new HashMap<>();
         bstHistogram = new BST();
-        depthHistogram = new HashMap<Integer, Integer>();
+        depthHistogram = new HashMap<Double, Double>();
         //updateBSTHistogram(); //instance variable
     }
 
@@ -117,30 +117,24 @@ public class WordCounter
         ArrayList<Double> depths = new ArrayList<Double>();
         while(iterator.hasNext()){
             System.out.print(iterator.next() + ", ");
-            double nextDepth = this.bstHistogram.currentDepth;
+            double nextDepth = histogram.tempDepth;
             depths.add(nextDepth);
         }
         
         System.out.print("\n");
-
         double meanDepth = (histogram.depthSum/ histogram.numOfNodes);
 
         double maxDepth = 0;
 
         for(double d : depths){
+            System.out.println("Depth: " + d);
             if(d > maxDepth){
                 maxDepth = d;
             }
         }
-
-
         System.out.println("maxDepth: " + maxDepth);
         System.out.println("meanDepth: " + meanDepth);
-        for(Map.Entry<Integer, Integer> entry : depthHistogram.entrySet()){
-            System.out.println("Depth: " + entry.getKey() + ": "  + entry.getValue());
-        }
-
-    }
+    }   
 
     public static void main(String[]args){
         WordCounter wc = new WordCounter();
