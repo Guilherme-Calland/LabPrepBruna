@@ -12,7 +12,6 @@ public class WordCounter
     // Associate each word with a count.
     private HashMap<String, Integer> counts;
     private BST bstHistogram;
-    private RedBlackBST rbBstHistogram;
     private HashMap<Double, Double> depthHistogram;
     // will contain the histogramm with the interger over the words
 
@@ -23,7 +22,6 @@ public class WordCounter
     {
         counts = new HashMap<>();
         bstHistogram = new BST();
-        rbBstHistogram = new RedBlackBST();
         depthHistogram = new HashMap<Double, Double>();
         //updateBSTHistogram(); //instance variable
     }
@@ -148,6 +146,35 @@ public class WordCounter
         }
     }   
 
+    public static void printTreeDepthHistogramRbt(RedBlackBST histogram){
+        Iterator iterator = histogram.iterator();
+        ArrayList<Double> depths = new ArrayList<Double>();
+        HashMap<Double, Double> depthHistogramRbt = new HashMap<Double, Double>();
+
+        while(iterator.hasNext()){
+            iterator.next();
+            double nextDepth = histogram.tempDepth;
+            depths.add(nextDepth);
+        }
+
+        double maxDepth = 0;
+
+        for(double d : depths){
+            if(d > maxDepth){
+                maxDepth = d;
+            }
+        }
+
+        for(double d = 0; d <= maxDepth; d++){
+            depthHistogramRbt.put(d, (new WordCounter()).findNumberOFDepths(depths, d));
+        }
+
+        for(Map.Entry<Double, Double> d : depthHistogramRbt.entrySet()){
+            System.out.println(d.getKey() + ": " + d.getValue());
+        }
+
+    }
+
     public static void main(String[]args){
 
         //BINARY SEARCH TREE
@@ -183,30 +210,30 @@ public class WordCounter
 
         System.out.println("\n\nRED-BLACK SEARCH TREE");
 
-        WordCounter wcRebBlack = new WordCounter();
-        wcRebBlack.addWord("c");
-        wcRebBlack.addWord("b");
-        wcRebBlack.addWord("d");
-        wcRebBlack.addWord("a");
-        wcRebBlack.addWord("t");
-        wcRebBlack.addWord("e");
-        wcRebBlack.addWord("z");
+        RedBlackBST redBlackBST = new RedBlackBST<>();
 
-        wcRebBlack.getAllTreeInfo();
+        redBlackBST.put("c",0);
+        redBlackBST.put("b",0);
+        redBlackBST.put("d",0);
+        redBlackBST.put("a",0);
+        redBlackBST.put("t",0);
+        redBlackBST.put("e",0);
+        redBlackBST.put("z",0);
 
-        WordCounter wcRebBlack2 = new WordCounter();
-        wcRebBlack2.addWord("one");
-        wcRebBlack2.addWord("more");
-        wcRebBlack2.addWord("nice");
-        wcRebBlack2.addWord("simple");
-        wcRebBlack2.addWord("example");
-        wcRebBlack2.addWord("of");
-        wcRebBlack2.addWord("a");
-        wcRebBlack2.addWord("binary");
-        wcRebBlack2.addWord("search");
-        wcRebBlack2.addWord("tree");
+        printTreeDepthHistogramRbt(redBlackBST);
 
-        wcRebBlack2.getAllTreeInfo();
+        RedBlackBST redBlackBST2 = new RedBlackBST<>();
+        redBlackBST2.put("one", 0);
+        redBlackBST2.put("more", 0);
+        redBlackBST2.put("nice", 0);
+        redBlackBST2.put("simple", 0);
+        redBlackBST2.put("example", 0);
+        redBlackBST2.put("of", 0);
+        redBlackBST2.put("a", 0);
+        redBlackBST2.put("binary", 0);
+        redBlackBST2.put("search", 0);
+        redBlackBST2.put("tree", 0);
 
+        printTreeDepthHistogramRbt(redBlackBST2);
     }
 }
