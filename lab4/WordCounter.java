@@ -12,6 +12,7 @@ public class WordCounter
     // Associate each word with a count.
     private HashMap<String, Integer> counts;
     private BST bstHistogram;
+    private RedBlackBST rbBstHistogram;
     private HashMap<Double, Double> depthHistogram;
     // will contain the histogramm with the interger over the words
 
@@ -22,6 +23,7 @@ public class WordCounter
     {
         counts = new HashMap<>();
         bstHistogram = new BST();
+        rbBstHistogram = new RedBlackBST();
         depthHistogram = new HashMap<Double, Double>();
         //updateBSTHistogram(); //instance variable
     }
@@ -135,6 +137,7 @@ public class WordCounter
         for(double d = 0; d <= maxDepth; d++){
             depthHistogram.put(d, findNumberOFDepths(depths, d));
         }
+        System.out.println("\n############################\n");
         System.out.println("maxDepth: " + maxDepth);
         System.out.println("\n############################\n");
         System.out.println("meanDepth: " + meanDepth);
@@ -146,6 +149,11 @@ public class WordCounter
     }   
 
     public static void main(String[]args){
+
+        //BINARY SEARCH TREE
+
+        System.out.println("BINARY SEARCH TREE");
+
         WordCounter wc = new WordCounter();
         wc.addWord("c");
         wc.addWord("b");
@@ -170,6 +178,35 @@ public class WordCounter
         wc2.addWord("tree");
 
         wc2.getAllTreeInfo();
+
+        //RED-BLACK TREE
+
+        System.out.println("\n\nRED-BLACK SEARCH TREE");
+
+        WordCounter wcRebBlack = new WordCounter();
+        wcRebBlack.addWord("c");
+        wcRebBlack.addWord("b");
+        wcRebBlack.addWord("d");
+        wcRebBlack.addWord("a");
+        wcRebBlack.addWord("t");
+        wcRebBlack.addWord("e");
+        wcRebBlack.addWord("z");
+
+        wcRebBlack.getAllTreeInfo();
+
+        WordCounter wcRebBlack2 = new WordCounter();
+        wcRebBlack2.addWord("one");
+        wcRebBlack2.addWord("more");
+        wcRebBlack2.addWord("nice");
+        wcRebBlack2.addWord("simple");
+        wcRebBlack2.addWord("example");
+        wcRebBlack2.addWord("of");
+        wcRebBlack2.addWord("a");
+        wcRebBlack2.addWord("binary");
+        wcRebBlack2.addWord("search");
+        wcRebBlack2.addWord("tree");
+
+        wcRebBlack2.getAllTreeInfo();
 
     }
 }

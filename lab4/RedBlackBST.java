@@ -11,12 +11,14 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Iterable
          Key key;
          Value val;
          Node left, right;
+         double depth;
          boolean color;
          Node(Key key, Value val, boolean color)
          {
              this.key = key;
              this.val = val;
              this.color = color;
+             this.depth = 0;
          }
      }
      
@@ -115,33 +117,47 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> implements Iterable
           return h;
      }
 
-     
-     public Iterator<Key> iterator()
-     { return new BSTIterator(); }
-    
-     private class BSTIterator implements Iterator<Key>
-     {
-         private Stack<Node> stack = new Stack<Node>();
-         
-         private void pushLeft(Node x) {
+    double numOfNodes = 0;
+    double currentDepth = -1;
+    double depthSum = 0;
+    double tempDepth = -1;
+
+    public Iterator<Key> iterator() {
+        return new BSTIterator();
+    }
+
+    private class BSTIterator implements Iterator<Key> {
+        private Stack<Node> stack = new Stack<Node>();
+
+        BSTIterator() {
+            pushLeft(root);
+        }
+
+        private void pushLeft(Node x) {
             while (x != null) {
+                currentDepth++;
+                x.depth = currentDepth;
                 stack.push(x);
                 x = x.left;
             }
         }
-         
-        BSTIterator() {
-            pushLeft(root);
-        }
-         
+
         public boolean hasNext() {
-            return !stack.isEmpty();
+            if(!stack.isEmpty()){
+                numOfNodes++;
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public Key next() {
             Node x = stack.pop();
+            currentDepth = x.depth;
+            tempDepth = currentDepth;
+            depthSum += x.depth;
             pushLeft(x.right);
             return x.key;
         }
-     }
+    }
 }
