@@ -175,6 +175,35 @@ public class WordCounter
 
     }
 
+    public static void printTreeDepthHistogramBST(BST histogram){
+        Iterator iterator = histogram.iterator();
+        ArrayList<Double> depths = new ArrayList<Double>();
+        HashMap<Double, Double> depthHistogramRbt = new HashMap<Double, Double>();
+
+        while(iterator.hasNext()){
+            iterator.next();
+            double nextDepth = histogram.tempDepth;
+            depths.add(nextDepth);
+        }
+
+        double maxDepth = 0;
+
+        for(double d : depths){
+            if(d > maxDepth){
+                maxDepth = d;
+            }
+        }
+
+        for(double d = 0; d <= maxDepth; d++){
+            depthHistogramRbt.put(d, (new WordCounter()).findNumberOFDepths(depths, d));
+        }
+
+        for(Map.Entry<Double, Double> d : depthHistogramRbt.entrySet()){
+            System.out.println(d.getKey() + ": " + d.getValue());
+        }
+
+    }
+
     public static void main(String[]args){
 
         //BINARY SEARCH TREE
