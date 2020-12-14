@@ -98,7 +98,7 @@ public class WordCounter
     }
 
 
-    public int findNumberOFDepths(ArrayList<Integer> depthsList, int depth){
+    public double findNumberOFDepths(ArrayList<Double> depthsList, double depth){
         int counter = 0;
         for(double d : depthsList){
             if(d == depth){
@@ -127,13 +127,22 @@ public class WordCounter
         double maxDepth = 0;
 
         for(double d : depths){
-            System.out.println("Depth: " + d);
             if(d > maxDepth){
                 maxDepth = d;
             }
         }
+
+        for(double d = 0; d <= maxDepth; d++){
+            depthHistogram.put(d, findNumberOFDepths(depths, d));
+        }
         System.out.println("maxDepth: " + maxDepth);
+        System.out.println("\n############################\n");
         System.out.println("meanDepth: " + meanDepth);
+        System.out.println("\n############################\n");
+        System.out.println("Depth Histogram:");
+        for(Map.Entry<Double, Double> d : depthHistogram.entrySet()){
+            System.out.println(d.getKey() + ": " + d.getValue());
+        }
     }   
 
     public static void main(String[]args){
